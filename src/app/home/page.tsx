@@ -23,6 +23,7 @@ export default function Page() {
     <section>
       <Hero />
       <h1> hello world</h1>
+      <br/>
       <h2> trying out a smaller thing</h2>
       <GoalStatement />
     </section>

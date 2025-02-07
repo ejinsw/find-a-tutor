@@ -25,6 +25,9 @@ export default function Page() {
       <h1> hello world</h1>
       <br/>
       <h2> trying out a smaller thing</h2>
+      <h1> hello world</h1>
+      <br/>
+      <h2> trying out a smaller thing</h2>
       <GoalStatement />
     </section>
   );

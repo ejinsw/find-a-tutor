@@ -18,9 +18,11 @@
 import { ContactForm } from "./ContactForm";
 
 export default function Page() {
+  
   return (
     <section>
-      <ContactForm />
+      <h1>Contact Us</h1>
+      <ContactForm classname="contact-form" />
     </section>
   );
 }

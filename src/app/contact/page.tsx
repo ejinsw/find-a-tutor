@@ -22,7 +22,7 @@ export default function Page() {
   return (
     <section>
       <h1>Contact Us</h1>
-      <ContactForm classname="contact-form" />
+      <ContactForm className="contact-form" />
     </section>
   );
 }

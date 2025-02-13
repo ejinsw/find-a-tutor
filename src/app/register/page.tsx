@@ -38,9 +38,39 @@
 import { RegisterInstructor } from "./RegisterInstructor";
 import { RegisterStudent } from "./RegisterStudent";
 
+// export type InfoProp = {
+//   addressHandler: (event: React.ChangeEvent<HTMLInputElement>) => void;
+//   countryHandler: (
+//     newValue: SingleValue<string>,
+//     actionMeta: ActionMeta<string>
+//   ) => void;
+// };
+// export type CountryProp = {
+//   countryHandler: (
+//     newValue: SingleValue<string>,
+//     actionMeta: ActionMeta<string>
+//   ) => void;
+// };
+
+export type AddressInfo = {
+  street: string;
+  city: string;
+  state: string;
+  zip: number;
+  country: string;
+};
+export type UserInfo = {
+  firstName: string;
+  lastName: string;
+  phoneNumber: string;
+  language: string;
+  birthdate: Date | null;
+  address: AddressInfo;
+};
+
 export default function Page() {
   // TODO: Update ternary with some stateful condition (i.e. a switch that toggles a boolean useState())
   return (
-    <section>{true ? <RegisterStudent /> : <RegisterInstructor />}</section>
+    <section>{false ? <RegisterStudent /> : <RegisterInstructor />}</section>
   );
 }

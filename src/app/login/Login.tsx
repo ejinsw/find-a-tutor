@@ -40,5 +40,7 @@ export function Login({ className }: Props) {
     }
   }
 
-  return <div className={`${className}`}></div>;
+  return <div className={`${className}`}>
+    
+  </div>;
 }

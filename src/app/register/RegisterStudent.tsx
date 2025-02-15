@@ -18,22 +18,22 @@ export type StudentInfo = {
 export function RegisterStudent({ className }: Props) {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const router = useRouter();
-  const [userInfo, setUserInfo] = useState<UserInfo>({
-    firstName: "",
-    lastName: "",
-    phoneNumber: "",
-    language: "English",
-    birthdate: new Date(),
-    address: {
-      street: "",
-      city: "",
-      state: "",
-      zip: 0,
-      country: "",
-    },
-  });
+
   const [studentInfo, setStudentInfo] = useState<StudentInfo>({
-    userInfo: userInfo,
+    userInfo: {
+      firstName: "",
+      lastName: "",
+      phoneNumber: "",
+      language: "English",
+      birthdate: new Date(),
+      address: {
+        street: "",
+        city: "",
+        state: "",
+        zip: 0,
+        country: "",
+      },
+    },
     grade: 0,
   });
   // TODO: Attach this function to the form like so <form onSubmit={onSubmit}>

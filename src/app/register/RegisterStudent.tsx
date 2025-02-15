@@ -1,6 +1,6 @@
 "use client";
 
-import { NumberInput } from "@mantine/core";
+import { Button, NumberInput } from "@mantine/core";
 import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
 import { UserInfo } from "./page";
@@ -37,12 +37,11 @@ export function RegisterStudent({ className }: Props) {
     grade: 0,
   });
   // TODO: Attach this function to the form like so <form onSubmit={onSubmit}>
-  async function onSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
+  async function onSubmit() {
+
     setIsLoading(true); // Start Loading
 
     try {
-      const formData = new FormData(event.currentTarget);
 
       // TODO: Remove mock delay for testing
       const seconds = 1.5;
@@ -58,16 +57,38 @@ export function RegisterStudent({ className }: Props) {
     }
   }
 
-  return <div className={`${className}`}>
-    <AccountInfo data={studentInfo} setData={setStudentInfo} />
-    <NumberInput
-        label="School Grade Level"
-        description="(1th-12th)"
-        placeholder="Current Grade"
-        //onChange={e => updateDataManually("phoneNumber", e.toString())}
-        clampBehavior="strict"
-        min={1}
-        max={12}
-      />
-  </div>;
+  return (
+    <div className={`max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8 bg-white shadow-lg rounded-xl ${className}`}>
+      {/* Student Info Section */}
+      <div className="mb-6">
+        <AccountInfo data={studentInfo} setData={setStudentInfo} />
+      </div>
+
+      {/* Grade Level Input */}
+      <div className="mb-6">
+        <label className="block text-gray-700 font-medium mb-2">School Grade Level</label>
+        <p className="text-sm text-gray-500 mb-2">(1st-12th)</p>
+        <input
+          type="number"
+          placeholder="Current Grade"
+          value={studentInfo.grade}
+          onChange={(e) => setStudentInfo({...studentInfo, ['grade']: Number(e.target.value)})}
+          min={1}
+          max={12}
+          className="w-full sm:w-3/4 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+        />
+      </div>
+
+      {/* Submit Button */}
+      <div className="flex justify-center">
+        <button
+          className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg shadow-md w-full sm:w-auto"
+          onClick={() => onSubmit()}
+          disabled={!studentInfo.grade} // Disable if no grade is selected
+        >
+          Submit
+        </button>
+      </div>
+    </div>
+  );
 }

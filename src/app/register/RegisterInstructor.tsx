@@ -39,9 +39,6 @@ export function RegisterInstructor({ className }: Props) {
   const router = useRouter();
   const [isLoadingSubmit, setIsLoadingSubmit] = useState<boolean>(false);
   const { user, error, isLoading } = useUser();
-  const [birthdate, setBirthdate] = useState<Date | null>(null);
-  const [isValid, setIsValid] = useState<boolean | null>(null);
-  const [number, setNumber] = useState<string | null>(null);
 
   const [teacherInfo, setTeacherInfo] = useState<TeacherInfo>({
     userInfo: {
@@ -61,12 +58,11 @@ export function RegisterInstructor({ className }: Props) {
     credentials: [],
   });
   // TODO: Attach this function to the form like so <form onSubmit={onSubmit}>
-  async function onSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
+  async function onSubmit() {
     setIsLoadingSubmit(true); // Start Loading
 
     try {
-      const formData = new FormData(event.currentTarget);
+
 
       // TODO: Remove mock delay for testing
       const seconds = 1.5;
@@ -81,9 +77,9 @@ export function RegisterInstructor({ className }: Props) {
       setIsLoadingSubmit(false);
     }
   }
-  const [files, setFiles] = useState<FileWithPath[]>([]);
+  const [files, setFiles] = useState<File | null>(null);
 
-  const handleDrop = (acceptedFiles: FileWithPath[]) => {
+  const handleDrop = (acceptedFiles: File | null) => {
     setFiles(acceptedFiles);
   };
 
@@ -94,63 +90,49 @@ export function RegisterInstructor({ className }: Props) {
     });
   };
 
-  // const submit = () => {
-  //   if (validateBirthdate(birthdate)) {
-  //     let temp = new Date(birthdate);
-  //     temp.setDate(temp.getDate() + 1);
-  //     setUserInfo(prevState => ({
-  //       ...prevState,
-  //       birthdate: temp,
-  //     }));
-  //     //Add user to the database after the submit
-
-  //     window.location.href = "/private/studentHome";
-  //   } else {
-  //     alert("Invalid birthdate");
-  //   }
-  // };
-
-  //if (isLoading) return <div>Loading...</div>; //isLoading
-  //if (error) return <div>{error.message}</div>; //error handling
-  //if (!user) return <div>Please authenticate to access this page.</div>; //if user is defined
-
-  //might be able to change this???
-
-  // useEffect(() => {
-  //   if (isValid) {
-  //     let s = "phoneNumber";
-  //     setUserInfo({ ...userInfo, [s]: number });
-  //   }
-  // }, [isValid]);
   return (
-    <div className={`${className}`}>
-      <AccountInfo data={teacherInfo} setData={setTeacherInfo} />
-      <MultiSelect
-        label="Credentialed Subjects"
-        placeholder="Choose Subjects"
-        data={subjects}
-        onChange={e => updateCredentials(e)}
-        clearable
-      />
-
-      <div style={{ maxWidth: 400, margin: "auto", paddingTop: 50 }}>
-        <Text size="lg" style={{ marginBottom: 10 }}>
-          Upload Your File
-        </Text>
-
-
-        <FileInput
-          label="Choose a file to upload"
-          placeholder="Pick a file"
-          required
-          onChange={file => console.log(file)} // Handle file selection
-          styles={{
-            root: {
-              marginBottom: 20,
-            },
-          }}
+    <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8 bg-white shadow-lg rounded-xl">
+      {/* Account Information Section */}
+      <div className="mb-6">
+        <AccountInfo data={teacherInfo} setData={setTeacherInfo} />
+      </div>
+  
+      {/* Credentialed Subjects MultiSelect */}
+      <div className="mb-6">
+        <MultiSelect
+          label="Licensed Teaching Subjects"
+          placeholder="Choose Subjects"
+          data={subjects}
+          onChange={e => updateCredentials(e)}
+          clearable
+          className="w-full"
         />
+      </div>
+  
+      {/* File Upload Section */}
+      <div className="mb-6">
+        <h2 className="text-lg font-semibold mb-2 text-gray-700 text-center">Upload Your File</h2>
+        <div className="flex justify-center">
+          <FileInput
+            label="Choose a file to upload"
+            placeholder="Pick a file"
+            required
+            onChange={e => handleDrop(e)} // Handle file selection
+            className="w-full sm:w-3/4"
+          />
+        </div>
+      </div>
+  
+      {/* Submit Button */}
+      <div className="flex justify-center">
+        <Button 
+          className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg shadow-md w-full sm:w-auto"
+          onClick={onSubmit}
+        >
+          Submit
+        </Button>
       </div>
     </div>
   );
+  
 }

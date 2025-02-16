@@ -22,6 +22,7 @@ export default function Page() {
   return (
     <section>
       <Hero />
+      <h1> hello world</h1>
       <GoalStatement />
     </section>
   );

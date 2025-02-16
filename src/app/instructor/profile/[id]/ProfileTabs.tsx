@@ -1,6 +1,6 @@
 "use client";
 
-import { Tabs } from "@mantine/core";
+import { Group, Tabs } from "@mantine/core";
 import { Review } from "./Review";
 import { Session } from "./Session";
 
@@ -25,15 +25,19 @@ export function ProfileTabs({ instructor }: Props) {
         <Tabs.Tab value="reviews">Reviews</Tabs.Tab>
       </Tabs.List>
 
-      <Tabs.Panel value="sessions">
-        {instructor.sessions.map((session, i) => (
-          <Session session={session} key={i} />
-        ))}
+      <Tabs.Panel my={24} value="sessions">
+        <Group wrap={"wrap"}>
+          {instructor.sessions.map((session, i) => (
+            <Session session={session} key={i} />
+          ))}
+        </Group>
       </Tabs.Panel>
-      <Tabs.Panel value="reviews">
-        {instructor.reviews.map((review, i) => (
-          <Review review={review} key={i} />
-        ))}
+      <Tabs.Panel my={24} value="reviews">
+        <Group wrap={"wrap"}>
+          {instructor.reviews.map((review, i) => (
+            <Review review={review} key={i} />
+          ))}
+        </Group>
       </Tabs.Panel>
     </Tabs>
   );

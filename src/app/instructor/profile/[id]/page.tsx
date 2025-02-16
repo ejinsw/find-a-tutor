@@ -53,6 +53,21 @@ const data = [
         rating: 5,
         content: "Very knowledgeable and patient. Highly recommend!",
       },
+      {
+        username: "AliceWilliams",
+        rating: 4,
+        content: "Good tutor, but sometimes late to sessions.",
+      },
+      {
+        username: "CharlieBrown",
+        rating: 3,
+        content: "Okay tutor, but I found someone better.",
+      },
+      {
+        username: "LucyLi",
+        rating: 5,
+        content: "Amazing tutor! Made biology easy to understand.",
+      }
     ],
     sessions: [
       {

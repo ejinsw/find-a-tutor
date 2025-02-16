@@ -1,7 +1,7 @@
 "use client";
 
-import { Card, Group, Pill, Stack, Text } from "@mantine/core";
-import Link from "next/link";
+import { Avatar, Button, Card, Group, Rating, Text } from "@mantine/core";
+
 
 interface Props {
   className?: string;
@@ -14,30 +14,51 @@ interface Props {
 }
 
 export function Session({ className, session }: Props) {
+  const formattedTime = new Intl.DateTimeFormat("en-US", {
+    weekday: "short",
+    month: "short",
+    day: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+    hour12: true,
+  }).format(new Date(session.time));
+
   return (
-    <Card className={`min-w-64 max-w-fit ${className}`} withBorder padding="lg">
-      <Card.Section></Card.Section>
-      <Card.Section>
-        <Stack className="p-4">
-          {session.name}
-          <Group>
-            <Pill className="w-fit">
-              <Link href={`/search?subject=${session.subject.toLowerCase()}`}>
-                {session.subject.toUpperCase()}
-              </Link>
-            </Pill>
-            <Text size="xs">
-              {session.time.toLocaleDateString("en-US", {
-                month: "2-digit",
-                day: "2-digit",
-                year: "2-digit",
-              })}
-            </Text>
-          </Group>
-          <Text>{session.description}</Text>
-        </Stack>
-      </Card.Section>
-      <Card.Section></Card.Section>
+    <Card className={`w-80 ${className}`} shadow="sm" padding="md" radius="md" withBorder>
+      <Group wrap="nowrap" gap="xs" mb="xs">
+        <Avatar src={""} alt={session.name} radius="xl" size="md" />
+        <div style={{ flex: 1 }}>
+          <Text fw={500} size="sm" lineClamp={1}>
+            {session.name}
+          </Text>
+          <Text size="xs" c="dimmed" lineClamp={1}>
+            {session.subject}
+          </Text>
+        </div>
+        <Rating value={4} readOnly fractions={2} size="sm" />
+      </Group>
+
+      <Text size="sm" lineClamp={3} mb="xs" style={{ minHeight: "3em" }}>
+        {session.description}
+      </Text>
+
+      <Group justify="space-between" align="center" mt="sm">
+        <Group gap="xs">
+
+          <Text size="xs" c="dimmed">
+            {formattedTime}
+          </Text>
+        </Group>
+
+        <Button
+          variant="light"
+          color="blue"
+          size="xs"
+          onClick={() => console.log("Booking session...")}
+        >
+          Join Session
+        </Button>
+      </Group>
     </Card>
   );
 }

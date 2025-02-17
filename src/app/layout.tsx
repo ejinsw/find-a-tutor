@@ -8,6 +8,7 @@ import {
   MantineProvider,
 } from "@mantine/core";
 import { Shell } from "./Shell";
+import { UserProvider } from "@auth0/nextjs-auth0/client";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -37,9 +38,11 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <MantineProvider>
-          <Shell>{children}</Shell>
-        </MantineProvider>
+        <UserProvider>
+          <MantineProvider>
+            <Shell>{children}</Shell>
+          </MantineProvider>
+        </UserProvider>
       </body>
     </html>
   );

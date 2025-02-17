@@ -22,11 +22,15 @@ function TutorCard({ tutor }: { tutor: TutorProfile }) {
   return (
     <Card shadow="sm" padding="lg" radius="md" withBorder h="100%">
       <Group wrap="nowrap" align="flex-start">
-        <Avatar
-          src={tutor.imageUrl}
-          size={80}
-          radius="md"
-        />
+        <Stack align="center" gap={4}>
+          <Avatar
+            src={tutor.imageUrl}
+            size={120}
+            radius="md"
+          />
+          <Text size="sm" c="dimmed">{tutor.yearsOfTutoring} years of tutoring</Text>
+          <Text size="sm" c="dimmed">{tutor.location}</Text>
+        </Stack>
         <Box style={{ flex: 1 }}>
           <Group justify="space-between" wrap="nowrap">
             <Box>
@@ -51,14 +55,6 @@ function TutorCard({ tutor }: { tutor: TutorProfile }) {
           <Text mt="sm" size="sm" lineClamp={2}>
             {tutor.description}
           </Text>
-
-          <Group mt="md" justify="space-between">
-            <Group gap="xs" wrap="nowrap">
-              <Text size="sm" c="dimmed">{tutor.yearsOfTutoring} years of tutoring</Text>
-              <Text size="sm" c="dimmed">•</Text>
-              <Text size="sm" c="dimmed">{tutor.location}</Text>
-            </Group>
-          </Group>
         </Box>
       </Group>
 

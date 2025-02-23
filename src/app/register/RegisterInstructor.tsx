@@ -10,12 +10,14 @@ import {
   MultiSelect,
   NumberInput,
   Select,
+  Stepper,
   TextInput,
 } from "@mantine/core";
 import { Dropzone, FileWithPath } from "@mantine/dropzone";
 import { Group, Text, Button } from "@mantine/core";
 import "@mantine/dates/styles.css";
 import AccountInfo from "./components/AccountInfo";
+import AddressInput from "./components/AddressInput";
 
 interface Props {
   className?: string;
@@ -39,7 +41,7 @@ export function RegisterInstructor({ className }: Props) {
   const router = useRouter();
   const [isLoadingSubmit, setIsLoadingSubmit] = useState<boolean>(false);
   const { user, error, isLoading } = useUser();
-
+  const [active, setActive] = useState(0);
   const [teacherInfo, setTeacherInfo] = useState<TeacherInfo>({
     userInfo: {
       firstName: "",
@@ -57,13 +59,15 @@ export function RegisterInstructor({ className }: Props) {
     },
     credentials: [],
   });
+
+
+  const nextStep = () => setActive((current) => (current < 3 ? current + 1 : current));
+  const prevStep = () => setActive((current) => (current > 0 ? current - 1 : current));
   // TODO: Attach this function to the form like so <form onSubmit={onSubmit}>
   async function onSubmit() {
     setIsLoadingSubmit(true); // Start Loading
 
     try {
-
-
       // TODO: Remove mock delay for testing
       const seconds = 1.5;
       await new Promise(resolve => setTimeout(resolve, seconds * 1000));
@@ -92,47 +96,60 @@ export function RegisterInstructor({ className }: Props) {
 
   return (
     <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8 bg-white shadow-lg rounded-xl">
-      {/* Account Information Section */}
-      <div className="mb-6">
-        <AccountInfo data={teacherInfo} setData={setTeacherInfo} />
-      </div>
-  
-      {/* Credentialed Subjects MultiSelect */}
-      <div className="mb-6">
-        <MultiSelect
-          label="Licensed Teaching Subjects"
-          placeholder="Choose Subjects"
-          data={subjects}
-          onChange={e => updateCredentials(e)}
-          clearable
-          className="w-full"
-        />
-      </div>
-  
-      {/* File Upload Section */}
-      <div className="mb-6">
-        <h2 className="text-lg font-semibold mb-2 text-gray-700 text-center">Upload Your File</h2>
-        <div className="flex justify-center">
-          <FileInput
-            label="Choose a file to upload"
-            placeholder="Pick a file"
-            required
-            onChange={e => handleDrop(e)} // Handle file selection
-            className="w-full sm:w-3/4"
-          />
-        </div>
-      </div>
-  
-      {/* Submit Button */}
-      <div className="flex justify-center">
-        <Button 
-          className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg shadow-md w-full sm:w-auto"
-          onClick={onSubmit}
-        >
-          Submit
-        </Button>
-      </div>
+      <Stepper active={active} onStepClick={setActive}>
+        <Stepper.Step label="First step" description="Basic Information">
+          <div className="mb-6">
+            <AccountInfo setData={setTeacherInfo} />
+          </div>
+        </Stepper.Step>
+        <Stepper.Step label="Second step" description="Input Address">
+          <AddressInput setData={setTeacherInfo} />
+        </Stepper.Step>
+        <Stepper.Step label="Credentials" description="Upload your Credentials">
+          {/* Credentialed Subjects MultiSelect */}
+          <div className="mb-6">
+            <MultiSelect
+              label="Licensed Teaching Subjects"
+              placeholder="Choose Subjects"
+              data={subjects}
+              onChange={e => updateCredentials(e)}
+              clearable
+              className="w-full"
+            />
+          </div>
+
+          {/* File Upload Section */}
+          <div className="mb-6">
+            <h2 className="text-lg font-semibold mb-2 text-gray-700 text-center">
+              Upload Your File
+            </h2>
+            <div className="flex justify-center">
+              <FileInput
+                label="Choose a file to upload"
+                placeholder="Pick a file"
+                required
+                onChange={e => handleDrop(e)} // Handle file selection
+                className="w-full sm:w-3/4"
+              />
+            </div>
+          </div>
+        </Stepper.Step>
+        <Stepper.Completed>
+          <div className="flex justify-center">
+            <Button
+              className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg shadow-md w-full sm:w-auto"
+              onClick={onSubmit}
+            >
+              Submit
+            </Button>
+          </div>
+        </Stepper.Completed>
+      </Stepper>
+      <Group justify="center" mt="xl">
+        <Button variant="default" onClick={prevStep}>Back</Button>
+        <Button onClick={nextStep}>Next step</Button>
+      </Group>
+
     </div>
   );
-  
 }

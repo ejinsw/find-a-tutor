@@ -20,7 +20,11 @@ import { ContactForm } from "./ContactForm";
 export default function Page() {
   return (
     <section>
+<<<<<<< Updated upstream
       <ContactForm />
+=======
+      <ContactForm className="contact-form" />
+>>>>>>> Stashed changes
     </section>
   );
 }

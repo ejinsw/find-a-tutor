@@ -10,18 +10,14 @@ interface Props {
 export function ContactForm({ className }: Props) {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-<<<<<<< Updated upstream
-=======
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [category, setCategory] = useState("General");
 
  
- 
-
->>>>>>> Stashed changes
-  // TODO: Attach this function to the form like so <form onSubmit={onSubmit}>
+   // TODO: Attach this function to the form like so <form onSubmit={onSubmit}>
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setIsLoading(true); // Start Loading
@@ -44,9 +40,7 @@ export function ContactForm({ className }: Props) {
     }
   }
 
-<<<<<<< Updated upstream
-  return <div className={`${className}`}></div>;
-=======
+  
   return (
   
   <div className={`max-w-5xl mx-auto p-6 ${className} mt-4 `}>
@@ -158,5 +152,5 @@ export function ContactForm({ className }: Props) {
   </div>
 </div>
   );
->>>>>>> Stashed changes
+
 }

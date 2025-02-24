@@ -80,7 +80,6 @@ export function ContactForm({ className }: Props) {
           onChange={(e) => setName(e.target.value)}
           className="w-full p-2 border rounded h-10"
           required />
-          {/*!message.trim() && <p className="text-red-500 text-sm mt-1">This field is required</p>*/}
       </div>
       
       {/*Email*/}
@@ -93,7 +92,6 @@ export function ContactForm({ className }: Props) {
           onChange={(e) => setEmail(e.target.value)}
           className="w-full p-2 border rounded h-10"
           required />
-          {/*!message.trim() && <p className="text-red-500 text-sm mt-1">This field is required</p>*/}
 
       </div>
 
@@ -106,7 +104,6 @@ export function ContactForm({ className }: Props) {
           onChange={(e) => setMessage(e.target.value)}
           className="w-full p-2 border rounded h-28"
           required />
-          {/*!message.trim() && <p className="text-red-500 text-sm mt-1">This field is required</p>*/}
       </div>
       <button 
       type="submit" 
